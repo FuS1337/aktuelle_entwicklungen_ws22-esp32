@@ -58,7 +58,10 @@ webtest.web(isItLightOrDark())
 upip.install("micropython-urequests")
 """
 
-wlantest.connwlan("","")
-camera.init(0, format=camera.JPEG, fb_location=camera.PSRAM)
+def init():
+    wlantest.connwlan("","")
+    camera.init(0, format=camera.JPEG, fb_location=camera.PSRAM)
 
-webtest.web("test")
+if __name__ == "__main__":
+     init()
+     webtest.web("test")
