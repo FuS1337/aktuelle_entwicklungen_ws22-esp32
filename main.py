@@ -44,38 +44,42 @@ def whatIsTheMainColor():
     res = "err"
     buf = getPhoto()
     
-    print(buf[0:500])
-    print("------------")
-    
-    #  rgb(255,0,255)
-    # 31 << 11 | 0 << 5 | 0 << 0    -> 63488
-    # That is 5 bits for red, 6 bits for green, 5 bits for blue
-    #  a = 31 << 11 | 0 << 5 | 0 << 0
-    #get rgb565 Picture
-    
     red = 0
     green = 0
     blue = 0
     other = 0
-    for pixel in picture:
-        if pixel <= 0x52BF and pixel >= 0x000C 
-            blue += 1
-        elif pixel <= 0xB7EF and pixel >= 0x01C0
-            green += 1
-        elif pixel <= 0xF9A6 and pixel >= 0xA000
-            red += 1
-        else:
-            other += 1
     
-    if ((red > green) & (red  blue) & (red > other)):
+    # pls give me more ram =(
+    # print(hex(int.from_bytes(buf, "big")) & 0xFFFF)
+    
+    old = ""
+    fst = True
+    for i in buf[0:10000:1]:
+        if fst:
+            old = i
+            fst = False
+        else:
+            pixel = (old << 8) + i
+            fst = True
+            r = (pixel & 0b1111100000000000) >> 8
+            g = (pixel & 0b11111000000) >> 3
+            b = (pixel & 0b11111) << 3
+            if r > g and r > b:
+                red += 1
+            elif g > r and g > b:
+                green+= 1
+            elif b > r and b > g:
+                blue += 1
+            else:
+                other += 1
+    if ((red > green) & (red > blue) & (red > other)):
         res = "red"
     elif ((green > red) & (green > blue) & (green > other)):
         res = "green"
     elif ((blue > red) & (blue > green) & (blue > other)):
-        res = "green"
+        res = "blue"
     else:
         res = "other"
-        
     return res
     
 """
