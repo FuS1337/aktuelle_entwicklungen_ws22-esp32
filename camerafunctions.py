@@ -1,8 +1,11 @@
 import camera
 
+# Funktion, die ein Foto zurückliefert
 def getPhoto():
     return camera.capture()
-        
+
+# Berechent Druchschnitt eines Bildes
+#   buf - Foto
 def getAvg(buf):
     num = 0
     sum = 0
@@ -11,16 +14,22 @@ def getAvg(buf):
         num += 1
     return num / sum
 
+# Entscheidet anhand der Durchnitts ob es hell oder dunkel ist
+#   avg - Durchschnitt deines Fotos (aus getAvg)
 def lightOrDark(avg):
     if avg >= 48:
         return "hell"
     else:
         return "dunkel"
 
-
+# Funktion, die die Hell Dunkel Erkennung realisiert
+#   liefert hell oder dunkel
 def isItLightOrDark():
     return lightOrDark(int(getAvg(getPhoto())))
 
+# Farberkennung
+#   macht Foto, berechnet für einige Pixel, wie viel Rot/Grün/Blau/ was anderes sind
+#   gibt rot/ grün/ blau/ andere Farbe aus
 def whatIsTheMainColor():
     res = "err"
     buf = getPhoto()
@@ -49,11 +58,11 @@ def whatIsTheMainColor():
             else:
                 other += 1
     if ((red > green) & (red > blue) & (red > other)):
-        res = "red"
+        res = "rot"
     elif ((green > red) & (green > blue) & (green > other)):
-        res = "green"
+        res = "grün"
     elif ((blue > red) & (blue > green) & (blue > other)):
-        res = "blue"
+        res = "blau"
     else:
-        res = "other"
+        res = "andere Farbe"
     return res
