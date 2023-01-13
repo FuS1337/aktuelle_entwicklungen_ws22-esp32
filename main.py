@@ -6,6 +6,8 @@ import camera
 
 COLORNOTLIGHTDARK = True
 
+# Main
+# Startetden Webserver und legt fest ob Farberkennug oder Hell-Dunkel-Erkennung genutzt werden soll
 if __name__ == "__main__":
     if COLORNOTLIGHTDARK:
         camera.init(0, format=camera.RGB565, fb_location=camera.PSRAM)
