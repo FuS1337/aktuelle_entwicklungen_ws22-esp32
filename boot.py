@@ -1,4 +1,8 @@
 # This file is executed on every boot (including wake-boot from deepsleep)
-import wlantest
+import wifi_connection
+
+SSID = "WLAN-NAME"
+WIFI_PW = "WLAN-PASSWORT"
+
 # mit Wlan verbinden
-wlantest.connwlan("WLAN-NAME","WLAN-PASSWORT")
+wifi_connection.wifi_connect(SSID, WIFI_PW)
