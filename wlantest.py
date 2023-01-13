@@ -10,6 +10,9 @@ esp.osdebug(None)
 import gc
 gc.collect()
 
+# Funktion um Wlanverbindungen herzustellen
+#   ssid     - Wlanname
+#   password - Passwort für das Wlan
 def connwlan(ssid, password):
     station = network.WLAN(network.STA_IF)
     station.active(True)
