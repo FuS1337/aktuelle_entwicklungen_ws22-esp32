@@ -9,7 +9,10 @@ import network
 import gc
 
 gc.collect()
- 
+
+# Funktion um Html für die Website zu generieren
+#   text          - String der auf der Website dargestellt werden soll
+#   farberkennung - Boolean, ob Farberkennung genutzt werden soll (Alternative Hell-Dunkel-Erkennung)
 def web_page(text,farberkennung):
     html = ""
     if farberkennung:
@@ -17,7 +20,10 @@ def web_page(text,farberkennung):
     else:
         html = """<!doctype html><html><head> <title>ESP Web Server</title> <meta name="viewport/"></head><body> <h1>ESP Web Server</h1><a>""" + text + camerafunctions.isItLightOrDark() +"""</a></body></html>"""
     return html
- 
+
+# Webserver für die Kamerafunktionen
+#   text          - String der auf der Website dargestellt werden soll
+#   farberkennung - Boolean, ob Farberkennung genutzt werden soll (Alternative Hell-Dunkel-Erkennung)
 def web(text, farberkennung):
    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
    s.bind(('', 80))
