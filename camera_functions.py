@@ -36,6 +36,29 @@ def is_it_light_or_dark(light_threshold=48):
         return "dunkel"
 
 
+def get_pixels_from_bytes(buf):
+    """ Generator for fetching pixels from image bytes.
+    Combines two bytes into a pixel and returns every fourth pixel.
+
+    :param buf: Image as Bytes
+    :return: Iterable of 16-Bit Pixels
+    """
+
+    counter = 0
+    acc = None
+    for cur_byte in buf:
+        if counter == 0:
+            acc = cur_byte
+            counter += 1
+        elif counter == 1:
+            yield (acc << 8) | cur_byte
+            counter += 1
+        elif counter == 7:
+            counter = 0
+        else:
+            counter += 1
+
+
 def get_current_main_color():
     """ Farberkennung
     macht Foto, berechnet fuer einige Pixel, wie viel Rot/Gruen/Blau/ was anderes sind
@@ -48,29 +71,20 @@ def get_current_main_color():
     green_count = 0
     blue_count = 0
     other_count = 0
-    byte_1 = 0
-    at_first_byte = True
 
-    for cur_byte in buf[0:10_000]:
-        if at_first_byte:
-            byte_1 = cur_byte
-            at_first_byte = False
+    for cur_pixel in get_pixels_from_bytes(buf):  # total of 307_200 Bytes
+        r = (cur_pixel & 0b11111000_00000000) >> 8
+        g = (cur_pixel & 0b00000111_11000000) >> 3
+        b = (cur_pixel & 0b00000000_00011111) << 3
+
+        if r > g and r > b:
+            red_count += 1
+        elif g > r and g > b:
+            green_count += 1
+        elif b > r and b > g:
+            blue_count += 1
         else:
-            pixel = (byte_1 << 8) + cur_byte
-            at_first_byte = True
-
-            r = (pixel & 0b11111000_00000000) >> 8
-            g = (pixel & 0b00000111_11000000) >> 3
-            b = (pixel & 0b00000000_00011111) << 3
-
-            if r > g and r > b:
-                red_count += 1
-            elif g > r and g > b:
-                green_count += 1
-            elif b > r and b > g:
-                blue_count += 1
-            else:
-                other_count += 1
+            other_count += 1
 
     if (red_count > green_count) and (red_count > blue_count) and (red_count > other_count):
         res = "rot"
@@ -82,4 +96,3 @@ def get_current_main_color():
         res = "andere Farbe"
 
     return res
-
