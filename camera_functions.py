@@ -72,7 +72,7 @@ def get_current_main_color():
     blue_count = 0
     other_count = 0
 
-    for cur_pixel in get_pixels_from_bytes(buf):  # total of 307_200 Bytes
+    for cur_pixel in get_pixels_from_bytes(buf):  # total of 307_200 Bytes / 153_600 Pixels
         r = (cur_pixel & 0b11111000_00000000) >> 8
         g = (cur_pixel & 0b00000111_11000000) >> 3
         b = (cur_pixel & 0b00000000_00011111) << 3
