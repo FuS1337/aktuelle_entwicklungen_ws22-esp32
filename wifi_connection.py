@@ -27,5 +27,5 @@ def wifi_connect(ssid, password):
         pass
 
     print('Connection successful')
-    print(f'Config: {station.ifconfig()}')
+    print(f'Listening on: {station.ifconfig()[0]}')
 

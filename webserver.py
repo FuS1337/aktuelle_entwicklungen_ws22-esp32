@@ -55,9 +55,9 @@ def start_webserver(text, result_function):
 
     while True:
         conn, addr = s.accept()
-        print(f'Got a connection from {str(addr)}')
+        print(f'Got a connection from {addr[0]}')
         request = conn.recv(1024)
-        request = str(request)
+        # request = str(request)
         # print("-----------------------------------------------------")
         # print(f'Content = {request}')
         # print("-----------------------------------------------------")
