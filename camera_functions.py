@@ -60,6 +60,13 @@ def get_pixels_from_bytes(buf):
             counter += 1
 
 
+def get_colors_from_pixel(pixel):
+    r = (pixel & 0b11111000_00000000) >> 8
+    g = (pixel & 0b00000111_11000000) >> 3
+    b = (pixel & 0b00000000_00011111) << 3
+    return r, g, b
+
+
 def get_current_main_color():
     """ Farberkennung
     macht Foto, berechnet fuer einige Pixel, wie viel Rot/Gruen/Blau/ was anderes sind
@@ -74,9 +81,7 @@ def get_current_main_color():
     other_count = 0
 
     for cur_pixel in get_pixels_from_bytes(buf):
-        r = (cur_pixel & 0b11111000_00000000) >> 8
-        g = (cur_pixel & 0b00000111_11000000) >> 3
-        b = (cur_pixel & 0b00000000_00011111) << 3
+        r, g, b = get_colors_from_pixel(cur_pixel)
 
         if r > g and r > b:
             red_count += 1
