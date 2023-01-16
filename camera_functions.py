@@ -13,16 +13,17 @@ def get_image_average(buf):
     :return: Durchschnitt des Bildes ueber bytes
     """
 
-    bytes_count = 0
-    bytes_sum = 0
-    for cur_byte in buf:
-        bytes_sum = cur_byte
-        bytes_count += 1
+    counter = 0
+    total_sum = 0
+    for cur_pixel in get_pixels_from_bytes(buf):
+        r, g, b = get_colors_from_pixel(cur_pixel)
+        total_sum += r + g + b
+        counter += 1
 
-    return bytes_count / bytes_sum
+    return total_sum / counter
 
 
-def is_it_light_or_dark(light_threshold=48):
+def is_it_light_or_dark(light_threshold=80):
     """ Nimmt ein Bild auf und entscheidet, ob es hell oder dunkel ist.
 
     :param light_threshold: Threshold ab dem ein Wert als Hell gilt

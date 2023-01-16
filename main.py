@@ -30,7 +30,7 @@ class Operations:
     )
     LIGHT_OR_DARK = OperationDefinition(
         camera_params={
-            "format": camera.JPEG,
+            "format": camera.RGB565,
             "fb_location": camera.PSRAM
         },
         text="Im Bild ist es aktuell ",
