@@ -30,6 +30,7 @@ def is_it_light_or_dark(light_threshold=48):
     """
 
     image_bytes_avg = get_image_average(capture_image())
+    print(f"Bytes-Avg: {image_bytes_avg} vs. {light_threshold}")
     if image_bytes_avg >= light_threshold:
         return "hell"
     else:
@@ -46,7 +47,7 @@ def get_pixels_from_bytes(buf):
 
     counter = 0
     acc = None
-    for cur_byte in buf:
+    for cur_byte in buf:  # total of 307_200 Bytes / 153_600 Pixels
         if counter == 0:
             acc = cur_byte
             counter += 1
@@ -63,7 +64,7 @@ def get_current_main_color():
     """ Farberkennung
     macht Foto, berechnet fuer einige Pixel, wie viel Rot/Gruen/Blau/ was anderes sind
 
-    :return: gibt rot/ gruen/ blau/ andere Farbe aus
+    :return: gibt rot/gruen/blau/andere Farbe aus
     """
 
     buf = capture_image()
@@ -72,7 +73,7 @@ def get_current_main_color():
     blue_count = 0
     other_count = 0
 
-    for cur_pixel in get_pixels_from_bytes(buf):  # total of 307_200 Bytes / 153_600 Pixels
+    for cur_pixel in get_pixels_from_bytes(buf):
         r = (cur_pixel & 0b11111000_00000000) >> 8
         g = (cur_pixel & 0b00000111_11000000) >> 3
         b = (cur_pixel & 0b00000000_00011111) << 3
@@ -95,4 +96,5 @@ def get_current_main_color():
     else:
         res = "andere Farbe"
 
+    print(f"Color-Distribution: ({red_count}xR, {green_count}xG, {blue_count}xB, {other_count}xO)")
     return res
