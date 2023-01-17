@@ -16,10 +16,10 @@ def get_image_average(buf):
     bytes_count = 0
     bytes_sum = 0
     for cur_byte in buf:
-        bytes_sum = cur_byte
+        bytes_sum += cur_byte
         bytes_count += 1
 
-    return bytes_count / bytes_sum
+    return bytes_sum / bytes_count
 
 
 def is_it_light_or_dark(light_threshold=48):
