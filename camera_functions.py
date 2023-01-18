@@ -23,7 +23,7 @@ def get_image_average(buf):
     return total_sum / counter
 
 
-def is_it_light_or_dark(light_threshold=80):
+def is_it_light_or_dark(light_threshold=65):
     """ Nimmt ein Bild auf und entscheidet, ob es hell oder dunkel ist.
 
     :param light_threshold: Threshold ab dem ein Wert als Hell gilt

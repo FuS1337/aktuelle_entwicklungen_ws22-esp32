@@ -3,13 +3,7 @@ import gc
 import esp
 import network
 
-try:
-    import usocket as socket
-except ImportError:
-    import socket
-
 esp.osdebug(None)
-
 gc.collect()
 
 
@@ -28,4 +22,3 @@ def wifi_connect(ssid, password):
 
     print('Connection successful')
     print(f'Listening on: {station.ifconfig()[0]}')
-
