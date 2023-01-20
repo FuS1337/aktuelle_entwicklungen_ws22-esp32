@@ -67,7 +67,7 @@ def get_colors_from_pixel(pixel):
     """ Nimmt ein Pixel in RGB565 Form entgegen und liefert die Farben zurück.
 
     :param pixel: 16-Bit Zahl in RGB565 Format
-    :return: Tuple aus Rot, Gruen, Blau
+    :return: Tuple aus Rot, Gruen, Blau (ints)
     """
 
     r = (pixel & 0b11111000_00000000) >> 8
