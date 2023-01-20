@@ -64,6 +64,12 @@ def get_pixels_from_bytes(buf, nth_pixel=128):
 
 
 def get_colors_from_pixel(pixel):
+    """ Nimmt ein Pixel in RGB565 Form entgegen und liefert die Farben zurück.
+
+    :param pixel: 16-Bit Zahl in RGB565 Format
+    :return: Tuple aus Rot, Gruen, Blau
+    """
+
     r = (pixel & 0b11111000_00000000) >> 8
     g = (pixel & 0b00000111_11000000) >> 3
     b = (pixel & 0b00000000_00011111) << 3
