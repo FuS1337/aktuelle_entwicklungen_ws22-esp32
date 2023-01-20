@@ -95,14 +95,12 @@ def get_current_main_color():
         else:
             other_count += 1
 
-    if (red_count > green_count) and (red_count > blue_count) and (red_count > other_count):
-        res = "rot"
-    elif (green_count > red_count) and (green_count > blue_count) and (green_count > other_count):
-        res = "gruen"
-    elif (blue_count > red_count) and (blue_count > green_count) and (blue_count > other_count):
-        res = "blau"
-    else:
-        res = "andere Farbe"
+    result_list = [
+        ("rot", red_count), ("gruen", green_count),
+        ("blau", blue_count), ("andere Farbe", other_count)
+    ]
+    res_color, res_value = max(result_list, key=lambda x: x[1])
 
-    print(f"Color-Distribution: ({red_count}xR, {green_count}xG, {blue_count}xB, {other_count}xO)")
-    return res
+    print(f"Color-Distribution: "
+          f"({red_count}xR, {green_count}xG, {blue_count}xB, {other_count}xO)")
+    return res_color
