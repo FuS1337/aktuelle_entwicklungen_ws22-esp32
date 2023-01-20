@@ -38,14 +38,16 @@ def is_it_light_or_dark(light_threshold=65):
         return "dunkel"
 
 
-def get_pixels_from_bytes(buf):
+def get_pixels_from_bytes(buf, nth_pixel=128):
     """ Generator for fetching pixels from image bytes.
     Combines two bytes into a pixel and returns every fourth pixel.
 
     :param buf: Image as Bytes
+    :param nth_pixel: Return every nth Pixel
     :return: Iterable of 16-Bit Pixels
     """
 
+    counter_max = 2 * nth_pixel - 1
     counter = 0
     acc = None
     for cur_byte in buf:  # total of 307_200 Bytes / 153_600 Pixels
@@ -55,7 +57,7 @@ def get_pixels_from_bytes(buf):
         elif counter == 1:
             yield (acc << 8) | cur_byte
             counter += 1
-        elif counter == 7:
+        elif counter == counter_max:
             counter = 0
         else:
             counter += 1
